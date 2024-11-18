@@ -1,0 +1,107 @@
+﻿@page
+@inject TrendingGamesApp.Services.GameService GameService
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trending Games</title>
+    <style>
+        /* CSS Reset for consistency */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Main Styles */
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: #f4f4f9;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #3a3b3c;
+            font-size: 2.2em;
+        }
+
+        .game-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .game-item {
+            padding: 15px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #4a90e2, #50c9c3);
+            color: #fff;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .game-item:hover {
+            transform: scale(1.05);
+        }
+
+        .game-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .game-genre, .game-description, .game-rating {
+            margin-bottom: 8px;
+        }
+
+        .game-rating {
+            font-weight: bold;
+        }
+
+        /* Responsive Design */
+        @@media (min-width: 600px) {
+            .game-list {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @@media (min-width: 900px) {
+            .game-list {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Trending Games</h1>
+        <div class="game-list">
+            @foreach (var game in GameService.GetTrendingGames())
+            {
+                <div class="game-item">
+                    <div class="game-title">@game.Title</div>
+                    <div class="game-genre">Genre: @game.Genre</div>
+                    <div class="game-description">Description: @game.Description</div>
+                    <div class="game-rating">Rating: ⭐ @game.Rating</div>
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>
